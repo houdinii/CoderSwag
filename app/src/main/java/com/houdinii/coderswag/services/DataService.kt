@@ -8,22 +8,6 @@ object DataService {
         Category("SHIRTS", "shirtimage"),
         Category("HOODIES", "hoodieimage"),
         Category("HATS", "hatimage"),
-        Category("DIGITAL", "digitalgoodsimage"),
-        Category("SHIRTS", "shirtimage"),
-        Category("HOODIES", "hoodieimage"),
-        Category("HATS", "hatimage"),
-        Category("DIGITAL", "digitalgoodsimage"),
-        Category("SHIRTS", "shirtimage"),
-        Category("HOODIES", "hoodieimage"),
-        Category("HATS", "hatimage"),
-        Category("DIGITAL", "digitalgoodsimage"),
-        Category("SHIRTS", "shirtimage"),
-        Category("HOODIES", "hoodieimage"),
-        Category("HATS", "hatimage"),
-        Category("DIGITAL", "digitalgoodsimage"),
-        Category("SHIRTS", "shirtimage"),
-        Category("HOODIES", "hoodieimage"),
-        Category("HATS", "hatimage"),
         Category("DIGITAL", "digitalgoodsimage")
     )
 
@@ -48,4 +32,16 @@ object DataService {
         Product("Devslopes Hustle", "$22", "shirt3"),
         Product("Kickflip Studios", "$18", "shirt4")
     )
+
+    // Empty
+    var digitalGood = listOf<Product>()
+
+    fun getProducts(category: String) : List<Product>{
+        return when(category){
+            "SHIRTS" -> shirts
+            "HATS" -> hats
+            "HOODIES" -> hoodies
+            else -> digitalGood
+        }
+    }
 }
