@@ -2,6 +2,7 @@ package com.houdinii.coderswag.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,18 +16,27 @@ class CategoryAdapter(val context: Context, private val categories: List<Categor
 
     @SuppressLint("ViewHolder", "InflateParams")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val categoryView: View =
-            LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
+        val categoryView: View
+        val holder : ViewHolder
 
-        val categoryImage : ImageView = categoryView.findViewById(R.id.categoryImage)
-        val categoryName : TextView = categoryView.findViewById(R.id.categoryName)
+        if (convertView == null) {
+            // first time these views are being presented
+            categoryView = LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
+            holder = ViewHolder()
+            holder.categoryImage = categoryView.findViewById(R.id.categoryImage)
+            holder.categoryName = categoryView.findViewById(R.id.categoryName)
+            categoryView.tag = holder
+        } else {
+            // if the view already exists
+            holder = convertView.tag as ViewHolder
+            categoryView = convertView
+        }
 
         val category = categories[position]
-
         val resourceId = context.resources.getIdentifier(category.image, "drawable", context.packageName)
-        categoryImage.setImageResource(resourceId)
-        println(resourceId)
-        categoryName.text = category.title
+
+        holder.categoryImage?.setImageResource(resourceId)
+        holder.categoryName?.text = category.title
 
         return categoryView
     }
@@ -43,5 +53,8 @@ class CategoryAdapter(val context: Context, private val categories: List<Categor
         return 0
     }
 
-
+    private class ViewHolder {
+        var categoryImage : ImageView? = null
+        var categoryName : TextView? = null
+    }
 }
