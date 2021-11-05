@@ -1,5 +1,6 @@
 package com.houdinii.coderswag.controller
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,6 +10,7 @@ import com.houdinii.coderswag.adapters.CategoryRecycleAdapter
 import com.houdinii.coderswag.databinding.ActivityMainBinding
 //import com.houdinii.coderswag.model.Category
 import com.houdinii.coderswag.services.DataService
+import com.houdinii.coderswag.utilities.EXTRA_CATEGORY
 
 private lateinit var binding : ActivityMainBinding
 
@@ -22,12 +24,17 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        adapter = CategoryRecycleAdapter(this, DataService.categories)
+        adapter = CategoryRecycleAdapter(this, DataService.categories) {category ->
+            val productIntent = Intent(this, ProductsActivity::class.java)
+            productIntent.putExtra(EXTRA_CATEGORY, category.title)
+            startActivity(productIntent)
+        }
         binding.categoryListView.adapter = adapter
 
         val layoutManager = LinearLayoutManager(this)
         binding.categoryListView.layoutManager = layoutManager
         binding.categoryListView.setHasFixedSize(true)
+
 
     /*
         // Only works on listViews:
