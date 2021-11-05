@@ -2,7 +2,6 @@ package com.houdinii.coderswag.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import android.widget.TextView
 import com.houdinii.coderswag.R
 import com.houdinii.coderswag.model.Category
 
-class CategoryAdapter(val context: Context, private val categories: List<Category>) : BaseAdapter() {
+class CategoryAdapter(private val context: Context, private val categories: List<Category>) : BaseAdapter() {
 
     @SuppressLint("ViewHolder", "InflateParams")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
